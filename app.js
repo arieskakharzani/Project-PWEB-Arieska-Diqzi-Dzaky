@@ -231,13 +231,13 @@ app.get('/download/:document_id', requireAuth, (req, res) => {
 //POST
 
 app.post('/register', function (req, res) {
-  const { username, password, confirm_password } = req.body;
+  const { username, email, password, confirm_password } = req.body;
 
   // check if username already exists
   const sqlCheck = 'SELECT * FROM users WHERE username = ?';
   db.query(sqlCheck, username, (err, result) => {
     if (err) throw err;
-
+      console.log('test');
     if (result.length > 0) {
       console.error({ message: 'Username sudah terdaftar', err });
       return res.redirect('/register');
@@ -253,8 +253,8 @@ app.post('/register', function (req, res) {
       if (err) throw err;
 
       // insert user to database
-      const sqlInsert = 'INSERT INTO users (username, password) VALUES (?, ?)';
-      const values = [username, hash];
+      const sqlInsert = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+      const values = [username, email, hash];
       db.query(sqlInsert, values, (err, result) => {
         if (err) throw err;
         console.log({ message: 'Registrasi berhasil', values });
