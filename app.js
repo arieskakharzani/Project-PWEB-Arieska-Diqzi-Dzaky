@@ -253,7 +253,7 @@ app.post('/register', function (req, res) {
       if (err) throw err;
 
       // insert user to database
-      const sqlInsert = 'INSERT INTO users (username, email, password, active) VALUES (?, ?, ?, 0)';
+      const sqlInsert = 'INSERT INTO users (username, email, password, active, sign_img) VALUES (?, ?, ?, 0, "")';
       const values = [username, email, hash];
       db.query(sqlInsert, values, (err, result) => {
         if (err) throw err;
